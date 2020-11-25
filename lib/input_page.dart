@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'card_content.dart';
+import 'bmi_card.dart';
 
-const Color cardColour = Color(0xFF1D1E33);
+const cardColour = Color(0xFF1D1E33);
+const textColour = Color(0xFF8D8E98);
+const bottomHeight = 80.0;
+const bottomColour = Color(0xFFEB1555);
 
 class InputPage extends StatefulWidget {
   @override
@@ -19,46 +25,47 @@ class _InputPageState extends State<InputPage> {
           Expanded(
             child: Row(
               children: [
-                Card(color: cardColour),
-                Card(color: cardColour),
+                BmiCard(
+                  color: cardColour,
+                  child: CardContent(
+                    icon: FontAwesomeIcons.mars,
+                    text: 'MALE',
+                    textColor: textColour,
+                  ),
+                ),
+                BmiCard(
+                  color: cardColour,
+                  child: CardContent(
+                    icon: FontAwesomeIcons.venus,
+                    text: 'FEMALE',
+                    textColor: textColour,
+                  ),
+                ),
               ],
             ),
           ),
           Expanded(
             child: Row(
               children: [
-                Card(color: cardColour),
+                BmiCard(color: cardColour),
               ],
             ),
           ),
           Expanded(
             child: Row(
               children: [
-                Card(color: cardColour),
-                Card(color: cardColour),
+                BmiCard(color: cardColour),
+                BmiCard(color: cardColour),
               ],
             ),
           ),
+          Container(
+            color: bottomColour,
+            margin: EdgeInsets.only(top: 10),
+            width: double.infinity,
+            height: bottomHeight,
+          )
         ],
-      ),
-    );
-  }
-}
-
-class Card extends StatelessWidget {
-  final Color color;
-
-  Card({@required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        margin: EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(10),
-        ),
       ),
     );
   }
