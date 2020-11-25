@@ -32,35 +32,31 @@ class _InputPageState extends State<InputPage> {
           Expanded(
             child: Row(
               children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      updateGenderCard(Gender.male);
-                    },
-                    child: BmiCard(
-                      color: genderCards[Gender.male],
-                      child: CardContent(
-                        icon: FontAwesomeIcons.mars,
-                        text: 'MALE',
-                        textColor: textColour,
-                      ),
-                    ),
+                BmiCard(
+                  color: genderCards[Gender.male],
+                  child: CardContent(
+                    icon: FontAwesomeIcons.mars,
+                    text: 'MALE',
+                    textColor: textColour,
                   ),
+                  onTap: () {
+                    setState(() {
+                      updateGenderCard(genderCards, Gender.male);
+                    });
+                  },
                 ),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      updateGenderCard(Gender.female);
-                    },
-                    child: BmiCard(
-                      color: genderCards[Gender.female],
-                      child: CardContent(
-                        icon: FontAwesomeIcons.venus,
-                        text: 'FEMALE',
-                        textColor: textColour,
-                      ),
-                    ),
+                BmiCard(
+                  color: genderCards[Gender.female],
+                  child: CardContent(
+                    icon: FontAwesomeIcons.venus,
+                    text: 'FEMALE',
+                    textColor: textColour,
                   ),
+                  onTap: () {
+                    setState(() {
+                      updateGenderCard(genderCards, Gender.female);
+                    });
+                  },
                 ),
               ],
             ),
@@ -68,15 +64,15 @@ class _InputPageState extends State<InputPage> {
           Expanded(
             child: Row(
               children: [
-                Expanded(child: BmiCard(color: cardColour)),
+                BmiCard(color: cardColour),
               ],
             ),
           ),
           Expanded(
             child: Row(
               children: [
-                Expanded(child: BmiCard(color: cardColour)),
-                Expanded(child: BmiCard(color: cardColour)),
+                BmiCard(color: cardColour),
+                BmiCard(color: cardColour),
               ],
             ),
           ),
@@ -90,19 +86,17 @@ class _InputPageState extends State<InputPage> {
       ),
     );
   }
-
-  void updateGenderCard(Gender selectedGender) {
-    setState(() {
-      genderCards.forEach((key, value) {
-        if (key == selectedGender) {
-          Color currentColor = genderCards[key];
-          genderCards[key] = currentColor == inactiveCardColour
-              ? cardColour
-              : inactiveCardColour;
-        } else {
-          genderCards[key] = inactiveCardColour;
-        }
-      });
-    });
-  }
 }
+
+Function updateGenderCard =
+    (Map<Gender, Color> genderCards, Gender selectedGender) {
+  genderCards.forEach((key, value) {
+    if (key == selectedGender) {
+      Color currentColor = genderCards[key];
+      genderCards[key] =
+          currentColor == inactiveCardColour ? cardColour : inactiveCardColour;
+    } else {
+      genderCards[key] = inactiveCardColour;
+    }
+  });
+};
