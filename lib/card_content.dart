@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'constants.dart';
+
 class CardContent extends StatelessWidget {
-  final Color textColor;
   final IconData icon;
   final String text;
 
-  CardContent({this.icon, this.text, this.textColor});
+  CardContent({this.icon, this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class CardContent extends StatelessWidget {
         ),
         Text(
           text,
-          style: TextStyle(fontSize: 18, color: textColor),
+          style: kLabelTextStyle,
         )
       ],
     );

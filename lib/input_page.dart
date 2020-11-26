@@ -1,14 +1,10 @@
 import 'package:bmi_calculator/gender_enum.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'card_content.dart';
 import 'bmi_card.dart';
-
-const cardColour = Color(0xFF1D1E33);
-const inactiveCardColour = Color(0xFF111328);
-const textColour = Color(0xFF8D8E98);
-const bottomHeight = 80.0;
-const bottomColour = Color(0xFFEB1555);
+import 'constants.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -17,9 +13,10 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Map<Gender, Color> genderCards = {
-    Gender.male: inactiveCardColour,
-    Gender.female: inactiveCardColour
+    Gender.male: kInactiveCardColour,
+    Gender.female: kInactiveCardColour
   };
+  int height = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +25,7 @@ class _InputPageState extends State<InputPage> {
         title: Text('BMI CALCULATOR'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             child: Row(
@@ -37,7 +35,6 @@ class _InputPageState extends State<InputPage> {
                   child: CardContent(
                     icon: FontAwesomeIcons.mars,
                     text: 'MALE',
-                    textColor: textColour,
                   ),
                   onTap: () {
                     setState(() {
@@ -50,7 +47,6 @@ class _InputPageState extends State<InputPage> {
                   child: CardContent(
                     icon: FontAwesomeIcons.venus,
                     text: 'FEMALE',
-                    textColor: textColour,
                   ),
                   onTap: () {
                     setState(() {
@@ -64,23 +60,53 @@ class _InputPageState extends State<InputPage> {
           Expanded(
             child: Row(
               children: [
-                BmiCard(color: cardColour),
+                BmiCard(
+                  color: kActiveCardColour,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'HEIGHT',
+                        style: kLabelTextStyle,
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Text(height.toString(), style: kIndicatorTextStyle),
+                            Text('cm', style: kLabelTextStyle),
+                          ]),
+                      Slider(
+                          value: height.toDouble(),
+                          min: 100,
+                          max: 220,
+                          activeColor: kAccentColour,
+                          inactiveColor: kTextColour,
+                          onChanged: (double newValue) {
+                            setState(() {
+                              height = newValue.round();
+                            });
+                          }),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
           Expanded(
             child: Row(
               children: [
-                BmiCard(color: cardColour),
-                BmiCard(color: cardColour),
+                BmiCard(color: kActiveCardColour),
+                BmiCard(color: kActiveCardColour),
               ],
             ),
           ),
           Container(
-            color: bottomColour,
+            color: kAccentColour,
             margin: EdgeInsets.only(top: 10),
             width: double.infinity,
-            height: bottomHeight,
+            height: kBottomHeight,
           )
         ],
       ),
@@ -93,10 +119,11 @@ Function updateGenderCard =
   genderCards.forEach((key, value) {
     if (key == selectedGender) {
       Color currentColor = genderCards[key];
-      genderCards[key] =
-          currentColor == inactiveCardColour ? cardColour : inactiveCardColour;
+      genderCards[key] = currentColor == kInactiveCardColour
+          ? kActiveCardColour
+          : kInactiveCardColour;
     } else {
-      genderCards[key] = inactiveCardColour;
+      genderCards[key] = kInactiveCardColour;
     }
   });
 };
