@@ -1,9 +1,9 @@
-import 'package:bmi_calculator/round_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'bmi_card.dart';
 import 'constants.dart';
+import 'round_icon_button.dart';
 
 class PlusMinusCard extends StatelessWidget {
   final Color color;

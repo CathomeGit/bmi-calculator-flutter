@@ -1,12 +1,14 @@
-import 'package:bmi_calculator/gender_enum.dart';
-import 'package:bmi_calculator/plus_minus_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'bmi_card.dart';
-import 'card_content.dart';
-import 'constants.dart';
+import '../components/bmi_card.dart';
+import '../components/bottom_button.dart';
+import '../components/card_content.dart';
+import '../components/constants.dart';
+import '../components/gender_enum.dart';
+import '../components/plus_minus_card.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -26,7 +28,7 @@ class _InputPageState extends State<InputPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('BMI CALCULATOR'),
+        title: title,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -137,12 +139,11 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            color: kAccentColour,
-            margin: EdgeInsets.only(top: 10),
-            width: double.infinity,
-            height: kBottomHeight,
-          )
+          BottomButton(
+              buttonLabel: 'CALCULATE',
+              onTap: () {
+                Navigator.pushNamed(context, '/result');
+              })
         ],
       ),
     );

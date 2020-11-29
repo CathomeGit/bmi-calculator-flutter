@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'constants.dart';
-import 'input_page.dart';
+import 'components/constants.dart';
+import 'screens/input_page.dart';
+import 'screens/result_page.dart';
 
 void main() => runApp(BMICalculator());
 
@@ -22,7 +23,11 @@ class BMICalculator extends StatelessWidget {
           overlayShape: RoundSliderOverlayShape(overlayRadius: 30),
         ),
       ),
-      home: InputPage(),
+      routes: {
+        '/': (context) => InputPage(),
+        '/result': (context) => ResultPage()
+      },
+      initialRoute: '/',
     );
   }
 }
