@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../bmi_logic/calculator.dart';
 import '../components/bmi_card.dart';
 import '../components/bottom_button.dart';
 import '../components/card_content.dart';
@@ -142,7 +143,8 @@ class _InputPageState extends State<InputPage> {
           BottomButton(
               buttonLabel: 'CALCULATE',
               onTap: () {
-                Navigator.pushNamed(context, '/result');
+                Navigator.pushNamed(context, '/result',
+                    arguments: Calculator(height, weight).calculate());
               })
         ],
       ),

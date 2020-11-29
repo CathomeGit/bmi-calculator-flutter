@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../bmi_logic/result.dart';
 import '../components/bmi_card.dart';
 import '../components/bottom_button.dart';
 import '../components/constants.dart';
@@ -7,6 +8,8 @@ import '../components/constants.dart';
 class ResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Result args = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
         title: title,
@@ -32,9 +35,9 @@ class ResultPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('range', style: kResultTextStyle),
-                Text('00.0', style: kBmiTextStyle),
-                Text('conclusion',
+                Text(args.result.toUpperCase(), style: kResultTextStyle),
+                Text(args.bmi, style: kBmiTextStyle),
+                Text(args.conclusion,
                     textAlign: TextAlign.center, style: kBodyTextStyle)
               ],
             ),
