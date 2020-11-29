@@ -1,9 +1,11 @@
 import 'package:bmi_calculator/gender_enum.dart';
+import 'package:bmi_calculator/plus_minus_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'card_content.dart';
+
 import 'bmi_card.dart';
+import 'card_content.dart';
 import 'constants.dart';
 
 class InputPage extends StatefulWidget {
@@ -17,6 +19,8 @@ class _InputPageState extends State<InputPage> {
     Gender.female: kInactiveCardColour
   };
   int height = 180;
+  double weight = 60.0;
+  int age = 30;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,7 @@ class _InputPageState extends State<InputPage> {
                   ),
                   onTap: () {
                     setState(() {
-                      updateGenderCard(genderCards, Gender.male);
+                      _updateGenderCard(genderCards, Gender.male);
                     });
                   },
                 ),
@@ -50,7 +54,7 @@ class _InputPageState extends State<InputPage> {
                   ),
                   onTap: () {
                     setState(() {
-                      updateGenderCard(genderCards, Gender.female);
+                      _updateGenderCard(genderCards, Gender.female);
                     });
                   },
                 ),
@@ -95,8 +99,40 @@ class _InputPageState extends State<InputPage> {
           Expanded(
             child: Row(
               children: [
-                BmiCard(color: kActiveCardColour),
-                BmiCard(color: kActiveCardColour),
+                PlusMinusCard(
+                  color: kActiveCardColour,
+                  label: 'WEIGHT',
+                  value: weight.toStringAsFixed(1),
+                  increase: () {
+                    setState(() {
+                      weight += 0.1;
+                    });
+                  },
+                  decrease: weight < 0.1
+                      ? null
+                      : () {
+                          setState(() {
+                            weight -= 0.1;
+                          });
+                        },
+                ),
+                PlusMinusCard(
+                  color: kActiveCardColour,
+                  label: 'AGE',
+                  value: age.toString(),
+                  increase: () {
+                    setState(() {
+                      age++;
+                    });
+                  },
+                  decrease: age == 0
+                      ? null
+                      : () {
+                          setState(() {
+                            age--;
+                          });
+                        },
+                ),
               ],
             ),
           ),
@@ -112,7 +148,7 @@ class _InputPageState extends State<InputPage> {
   }
 }
 
-Function updateGenderCard =
+Function _updateGenderCard =
     (Map<Gender, Color> genderCards, Gender selectedGender) {
   genderCards.forEach((key, value) {
     if (key == selectedGender) {
