@@ -103,6 +103,7 @@ class _InputPageState extends State<InputPage> {
                   color: kActiveCardColour,
                   label: 'WEIGHT',
                   value: weight.toStringAsFixed(1),
+                  // TODO implement onHold
                   increase: () {
                     setState(() {
                       weight += 0.1;

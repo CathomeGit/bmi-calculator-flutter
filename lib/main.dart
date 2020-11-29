@@ -14,6 +14,7 @@ class BMICalculator extends StatelessWidget {
         scaffoldBackgroundColor: kScaffoldColour,
         sliderTheme: SliderTheme.of(context).copyWith(
           activeTrackColor: Colors.white,
+          trackHeight: 1.0,
           inactiveTrackColor: kTextColour,
           thumbColor: kAccentColour,
           overlayColor: kAccentColour.withAlpha(0x1f),
